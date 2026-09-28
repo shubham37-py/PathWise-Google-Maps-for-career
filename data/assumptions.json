@@ -1,0 +1,56 @@
+[
+  {
+    "id": "asm-1",
+    "metric": "Higher Education Fee Inflation",
+    "value": "8.0% annually",
+    "rationale": "Historical 10-year compounding rate across Indian private and international collegiate programs.",
+    "confidence": "High",
+    "source": "RBI Bulletin / AICTE Education Index",
+    "lastVerified": "15 Feb 2026"
+  },
+  {
+    "id": "asm-2",
+    "metric": "Foreign Exchange Rate (INR / USD)",
+    "value": "1 USD = ₹83.33",
+    "rationale": "Median exchange rate modeled for 2025-2026 academic budget allocations.",
+    "confidence": "High",
+    "source": "Reserve Bank of India Reference Rate",
+    "lastVerified": "20 Feb 2026"
+  },
+  {
+    "id": "asm-3",
+    "metric": "Foreign Exchange Rate (INR / GBP)",
+    "value": "1 GBP = ₹105.26",
+    "rationale": "UK Tier 4 visa maintenance fund benchmarks.",
+    "confidence": "High",
+    "source": "Bank of England / UK Visas & Immigration",
+    "lastVerified": "18 Feb 2026"
+  },
+  {
+    "id": "asm-4",
+    "metric": "Graduate Starting Salary Growth Rate",
+    "value": "8.5% annual escalation",
+    "rationale": "Expected annual salary hike during initial 5 post-qualification career years.",
+    "confidence": "Medium",
+    "source": "NASSCOM & Mercer Total Remuneration Survey",
+    "lastVerified": "10 Jan 2026"
+  },
+  {
+    "id": "asm-5",
+    "metric": "Comfortable EMI Burden Threshold",
+    "value": "30% of take-home pay",
+    "rationale": "Prudent consumer debt ratio to avoid defaults during economic stress.",
+    "confidence": "High",
+    "source": "Credit Bureau Consumer Finance Guidelines",
+    "lastVerified": "05 Jan 2026"
+  },
+  {
+    "id": "asm-6",
+    "metric": "NEET Medical Seat Acceptance Probability",
+    "value": "2.8% Govt / 18.5% Private",
+    "rationale": "2.4 million candidates competing for ~108,000 MBBS seats nationwide.",
+    "confidence": "High",
+    "source": "National Medical Commission (NMC) Official Seat Matrix",
+    "lastVerified": "25 Jan 2026"
+  }
+]

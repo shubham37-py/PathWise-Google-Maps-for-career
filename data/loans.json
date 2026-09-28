@@ -1,0 +1,59 @@
+[
+  {
+    "id": "sbi-scholar",
+    "name": "State Bank of India (SBI Scholar / Global Ed-Vantage)",
+    "type": "Public Sector Bank",
+    "interestRateAnnual": 8.50,
+    "processingFeePercent": 0.0,
+    "processingFeeMaxINR": 0,
+    "collateralRequirement": "Required above ₹7.5L",
+    "moratoriumPeriodMonths": 66,
+    "maxTenureYears": 15,
+    "source": "SBI Retail Assets Schedule",
+    "lastVerified": "12 Feb 2026",
+    "features": [
+      "Zero processing fee for premier institutions (List AA/A)",
+      "0.50% concession for girl students",
+      "Section 80E full tax deduction on interest paid",
+      "Moratorium covers course duration + 12 months"
+    ]
+  },
+  {
+    "id": "hdfc-credila",
+    "name": "HDFC Credila Education Loan",
+    "type": "Private NBFC",
+    "interestRateAnnual": 10.25,
+    "processingFeePercent": 1.0,
+    "processingFeeMaxINR": 15000,
+    "collateralRequirement": "None",
+    "moratoriumPeriodMonths": 54,
+    "maxTenureYears": 12,
+    "source": "HDFC Credila Rate Card",
+    "lastVerified": "22 Feb 2026",
+    "features": [
+      "Unsecured loans up to ₹50 Lakh for select global STEM programs",
+      "Sanction letter before university visa confirmation",
+      "Partial simple interest serviced during study period",
+      "Doorstep document collection"
+    ]
+  },
+  {
+    "id": "avanse-financial",
+    "name": "Avanse Financial Services",
+    "type": "Specialized Edtech Lender",
+    "interestRateAnnual": 11.50,
+    "processingFeePercent": 1.25,
+    "processingFeeMaxINR": 20000,
+    "collateralRequirement": "None",
+    "moratoriumPeriodMonths": 48,
+    "maxTenureYears": 10,
+    "source": "Avanse Student Credit Portal",
+    "lastVerified": "18 Feb 2026",
+    "features": [
+      "Covers 100% of educational & living expenses including airfare",
+      "Fast 3-day approval turnaround",
+      "Flexible repayment structuring with graduated EMI",
+      "Pre-visa disbursement option"
+    ]
+  }
+]

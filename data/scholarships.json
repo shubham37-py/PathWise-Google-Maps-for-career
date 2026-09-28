@@ -1,0 +1,153 @@
+[
+  {
+    "id": "inspire-dst",
+    "name": "INSPIRE Scholarship for Higher Education (SHE)",
+    "provider": "Department of Science and Technology (DST), Govt of India",
+    "amountINR": 400000,
+    "conditions": "₹80,000/year for 5-year BS-MS/BSc-MSc programs. Requires top 1% rank in Class 12 board examinations.",
+    "incomeLimitINR": 1000000,
+    "minClass10Score": 85,
+    "targetGender": "all",
+    "deadline": "31 Oct 2026",
+    "status": "Potentially eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Class 10 score >= 85%", "met": true },
+      { "criterion": "Pursuing Natural/Basic Sciences at recognized institute", "met": true },
+      { "criterion": "Enrolled in IISER, IISc, or Central University", "met": true },
+      { "criterion": "Age under 22 years", "met": true }
+    ],
+    "source": "DST National Portal",
+    "lastVerified": "14 Jan 2026"
+  },
+  {
+    "id": "pmss-central",
+    "name": "Prime Minister Special Scholarship Scheme (PMSSS)",
+    "provider": "AICTE / Ministry of Education",
+    "amountINR": 350000,
+    "conditions": "Full tuition waiver up to ₹3.0 Lakh/year + ₹1.0 Lakh maintenance allowance for engineering & medical streams.",
+    "incomeLimitINR": 800000,
+    "minClass10Score": 60,
+    "targetGender": "all",
+    "deadline": "15 Jul 2026",
+    "status": "Ineligible",
+    "eligibilityChecklist": [
+      { "criterion": "Domicile of Jammu & Kashmir / Ladakh", "met": false },
+      { "criterion": "Family income < ₹8 Lakh/annum", "met": true },
+      { "criterion": "Admission through centralized counseling", "met": true }
+    ],
+    "source": "AICTE Official Notification",
+    "lastVerified": "02 Feb 2026"
+  },
+  {
+    "id": "tata-trusts-merit",
+    "name": "Tata Trusts Medical and Healthcare Scholarship",
+    "provider": "Tata Trusts",
+    "amountINR": 250000,
+    "conditions": "Covers 30% to 75% of tuition fees for students in MBBS, BDS, and allied sciences in India.",
+    "incomeLimitINR": 1200000,
+    "minClass10Score": 80,
+    "targetGender": "all",
+    "deadline": "15 Dec 2026",
+    "status": "Potentially eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Class 10 score >= 80%", "met": true },
+      { "criterion": "Enrolled in NMC-accredited Medical College", "met": true },
+      { "criterion": "Annual family income under ₹12 Lakh", "met": true }
+    ],
+    "source": "Tata Trusts Educational Grants",
+    "lastVerified": "19 Jan 2026"
+  },
+  {
+    "id": "reliance-foundation",
+    "name": "Reliance Foundation Undergraduate Scholarship",
+    "provider": "Reliance Foundation",
+    "amountINR": 200000,
+    "conditions": "Grant of up to ₹2 Lakh over degree duration for first-year degree students across disciplines.",
+    "incomeLimitINR": 1500000,
+    "minClass10Score": 75,
+    "targetGender": "all",
+    "deadline": "06 Oct 2026",
+    "status": "Eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Passed Class 12 with minimum 60%", "met": true },
+      { "criterion": "Household income <= ₹15 Lakh", "met": true },
+      { "criterion": "Mandatory online aptitude assessment", "met": true }
+    ],
+    "source": "Reliance Foundation CSR Portal",
+    "lastVerified": "08 Feb 2026"
+  },
+  {
+    "id": "hcl-techbee-stipend",
+    "name": "HCL TechBee Work-Integrated Early Career Grant",
+    "provider": "HCL Technologies",
+    "amountINR": 180000,
+    "conditions": "Full fee waiver for integrated BSc/BCA + ₹10,000 monthly stipend from month 13.",
+    "incomeLimitINR": 2000000,
+    "minClass10Score": 70,
+    "targetGender": "all",
+    "deadline": "30 Jun 2026",
+    "status": "Eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Mathematics in Class 12 with >= 60%", "met": true },
+      { "criterion": "Aptitude test & interview clearance", "met": true }
+    ],
+    "source": "HCL TechBee Official Career Program",
+    "lastVerified": "28 Jan 2026"
+  },
+  {
+    "id": "cw-cwit-stem",
+    "name": "Commonwealth STEM Excellence Grant (UK)",
+    "provider": "Commonwealth Scholarship Commission",
+    "amountINR": 1800000,
+    "conditions": "50% tuition reduction for undergraduate science & engineering applicants at partner UK universities.",
+    "incomeLimitINR": 2500000,
+    "minClass10Score": 88,
+    "targetGender": "all",
+    "deadline": "15 Jan 2027",
+    "status": "Potentially eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Class 10/12 >= 88%", "met": true },
+      { "criterion": "Offer from UK Russell Group institution", "met": false },
+      { "criterion": "IELTS Academic score >= 7.0", "met": true }
+    ],
+    "source": "British Council India",
+    "lastVerified": "11 Feb 2026"
+  },
+  {
+    "id": "mahadbt-ebc",
+    "name": "Rajarshi Chhatrapati Shahu Maharaj Shikshan Shulkh Shishyavrutti",
+    "provider": "Government of Maharashtra (MahaDBT)",
+    "amountINR": 150000,
+    "conditions": "50% tuition and exam fee waiver in Govt & Aided colleges in Maharashtra for EBC students.",
+    "incomeLimitINR": 800000,
+    "minClass10Score": 60,
+    "targetGender": "all",
+    "deadline": "30 Nov 2026",
+    "status": "Eligible",
+    "eligibilityChecklist": [
+      { "criterion": "Maharashtra state domicile", "met": true },
+      { "criterion": "Family income <= ₹8 Lakh", "met": true },
+      { "criterion": "Admission through CAP round", "met": true }
+    ],
+    "source": "MahaDBT Directorate of Technical Education",
+    "lastVerified": "05 Feb 2026"
+  },
+  {
+    "id": "ontario-trillium",
+    "name": "Ontario International Student Entrance Award",
+    "provider": "Council of Ontario Universities (Canada)",
+    "amountINR": 620000,
+    "conditions": "CAD $10,000 entrance award for first-year international STEM matriculants.",
+    "incomeLimitINR": 3500000,
+    "minClass10Score": 85,
+    "targetGender": "all",
+    "deadline": "01 Mar 2027",
+    "status": "Potentially eligible",
+    "eligibilityChecklist": [
+      { "criterion": "High school average >= 85%", "met": true },
+      { "criterion": "Demonstrated extracurricular/research involvement", "met": true }
+    ],
+    "source": "Ontario Universities Application Centre",
+    "lastVerified": "17 Jan 2026"
+  }
+]
