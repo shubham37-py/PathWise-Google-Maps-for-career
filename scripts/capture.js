@@ -18,39 +18,63 @@ async function main() {
 
   const page = await browser.newPage();
 
-  // 1. Profile Builder Desktop Light (1440x900)
-  console.log("Capturing Profile Builder (Desktop Light)...");
+  // 1. What-If Simulator Desktop Light (1440x900)
+  console.log("Capturing What-If Simulator...");
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto("http://localhost:3000?tab=profile&theme=light", { waitUntil: "networkidle0" });
+  await page.goto("http://localhost:3000?tab=whatif&theme=light", { waitUntil: "networkidle0" });
   await new Promise((r) => setTimeout(r, 1200));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-1440-light.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-1440-light.png") });
+  // Click first preset: "I don't get MBBS"
+  const buttons = await page.$$("button");
+  for (const b of buttons) {
+    const text = await (await b.getProperty("innerText")).jsonValue();
+    if (text && text.includes("I don't get MBBS")) {
+      await b.click();
+      await new Promise((r) => setTimeout(r, 800));
+      break;
+    }
+  }
+  await page.screenshot({ path: path.join(LOCAL_DIR, "whatif-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "whatif-1440-light.png") });
 
-  // 2. Profile Builder Desktop Dark (1440x900)
-  console.log("Capturing Profile Builder (Desktop Dark)...");
-  await page.goto("http://localhost:3000?tab=profile&theme=dark", { waitUntil: "networkidle0" });
-  await new Promise((r) => setTimeout(r, 1200));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-1440-dark.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-1440-dark.png") });
-
-  // 3. Profile Builder Mobile Light (375x812)
-  console.log("Capturing Profile Builder (Mobile Light)...");
+  // 2. What-If Simulator Mobile Light (375x812)
+  console.log("Capturing What-If Simulator (Mobile)...");
   await page.setViewport({ width: 375, height: 812, isMobile: true, hasTouch: true });
-  await page.goto("http://localhost:3000?tab=profile&theme=light", { waitUntil: "networkidle0" });
+  await page.goto("http://localhost:3000?tab=whatif&theme=light", { waitUntil: "networkidle0" });
   await new Promise((r) => setTimeout(r, 1200));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-375-light.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-375-light.png") });
+  await page.screenshot({ path: path.join(LOCAL_DIR, "whatif-375-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "whatif-375-light.png") });
 
-  // 4. Landing Page Desktop Light (1440x900)
-  console.log("Capturing Landing Page (Desktop Light)...");
+  // 3. Funding & Loans Desktop Light (1440x900)
+  console.log("Capturing Funding & Loans...");
   await page.setViewport({ width: 1440, height: 900 });
-  await page.goto("http://localhost:3000?tab=landing&theme=light", { waitUntil: "networkidle0" });
+  await page.goto("http://localhost:3000?tab=funding&theme=light", { waitUntil: "networkidle0" });
   await new Promise((r) => setTimeout(r, 1200));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "landing-1440-light.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "landing-1440-light.png") });
+  await page.screenshot({ path: path.join(LOCAL_DIR, "funding-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "funding-1440-light.png") });
+
+  // 4. Institution Comparison Desktop Light (1440x900)
+  console.log("Capturing Institution Comparison...");
+  await page.goto("http://localhost:3000?tab=comparison&theme=light", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "comparison-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "comparison-1440-light.png") });
+
+  // 5. Decision Matrix Desktop Light (1440x900)
+  console.log("Capturing Decision Matrix...");
+  await page.goto("http://localhost:3000?tab=decide&theme=light", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "matrix-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "matrix-1440-light.png") });
+
+  // 6. Decision Matrix Desktop Dark (1440x900)
+  console.log("Capturing Decision Matrix (Dark)...");
+  await page.goto("http://localhost:3000?tab=decide&theme=dark", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "matrix-1440-dark.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "matrix-1440-dark.png") });
 
   await browser.close();
-  console.log("Profile & Landing screenshots captured successfully.");
+  console.log("All comprehensive platform screenshots captured successfully.");
 }
 
 main().catch((err) => {
