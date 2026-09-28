@@ -108,6 +108,108 @@ export function breakEvenYear(
 }
 
 /**
+ * Pure function that recalculates pathway fit scores, risks, and admission chances
+ * based on any custom user profile (budget, percentage, subject strengths, goal, and mobility).
+ */
+export function calculatePathwaysForProfile(
+  profile: StudentProfile,
+  basePathways: Pathway[]
+): Pathway[] {
+  const bioStrength = profile.subjectStrengths.find((s) => s.subject.toLowerCase().includes("bio"))?.score ?? 80;
+  const mathStrength = profile.subjectStrengths.find((s) => s.subject.toLowerCase().includes("math"))?.score ?? 80;
+  const userPct = profile.class10Percentage;
+  const budget = profile.totalBudgetINR;
+
+  return basePathways.map((pathway) => {
+    const updated = { ...pathway };
+    let fitScore = pathway.fitScore;
+    let riskLevel = pathway.overallRisk;
+    let minChance = pathway.overallAdmissionChance[0];
+    let maxChance = pathway.overallAdmissionChance[1];
+
+    // 1. Budget Affordability Check
+    const budgetShortfall = Math.max(0, updated.totalCostINR - budget);
+    if (budgetShortfall > 0) {
+      if (profile.loanAppetite === "none") {
+        fitScore = Math.max(10, fitScore - 40);
+        riskLevel = "high";
+      } else if (profile.loanAppetite === "low" && budgetShortfall > 1000000) {
+        fitScore = Math.max(20, fitScore - 25);
+        riskLevel = "high";
+      } else if (budgetShortfall > 3000000) {
+        fitScore = Math.max(25, fitScore - 15);
+      }
+    } else {
+      // Fully funded within family budget: boost fit
+      fitScore = Math.min(99, fitScore + 6);
+    }
+
+    // 2. Academic Score & Subject Alignment
+    if (pathway.code === "MBBS-IN") {
+      if (bioStrength >= 90 && userPct >= 88) {
+        minChance = 14;
+        maxChance = 22;
+        fitScore = Math.min(98, fitScore + 6);
+      } else if (userPct < 80 || bioStrength < 75) {
+        minChance = 3;
+        maxChance = 8;
+        riskLevel = "high";
+        fitScore = Math.max(20, fitScore - 30);
+      }
+    } else if (pathway.code === "BTECH-IN") {
+      if (mathStrength >= 90 && userPct >= 85) {
+        minChance = 42;
+        maxChance = 58;
+        fitScore = Math.min(98, fitScore + 6);
+      } else if (userPct < 75 || mathStrength < 70) {
+        minChance = 18;
+        maxChance = 30;
+        fitScore = Math.max(30, fitScore - 20);
+      }
+    } else if (pathway.code === "BSC-RES") {
+      if (bioStrength >= 85 && mathStrength >= 85) {
+        fitScore = Math.min(99, fitScore + 10);
+      }
+    } else if (pathway.code === "DIP-LAT") {
+      if (userPct >= 80) {
+        minChance = 88;
+        maxChance = 96;
+        riskLevel = "low";
+        if (budget < 800000) {
+          fitScore = Math.min(95, fitScore + 15);
+        }
+      }
+    }
+
+    // 3. Goal Alignment
+    const goalLower = profile.familyGoal.toLowerCase();
+    if (goalLower.includes("mbbs") || goalLower.includes("doctor") || goalLower.includes("medic")) {
+      if (pathway.category === "medical") fitScore = Math.min(99, fitScore + 10);
+      if (pathway.code === "BSC-RES") fitScore = Math.min(96, fitScore + 5);
+    } else if (goalLower.includes("eng") || goalLower.includes("tech") || goalLower.includes("soft")) {
+      if (pathway.category === "engineering") fitScore = Math.min(99, fitScore + 12);
+      if (pathway.category === "vocational") fitScore = Math.min(92, fitScore + 8);
+    } else if (goalLower.includes("research") || goalLower.includes("science")) {
+      if (pathway.code === "BSC-RES") fitScore = Math.min(99, fitScore + 14);
+    }
+
+    // 4. International Mobility Constraints
+    if (!profile.openToAbroad && pathway.category === "international") {
+      fitScore = 10;
+      riskLevel = "high";
+      minChance = 0;
+      maxChance = 5;
+    }
+
+    updated.fitScore = Math.max(5, Math.min(99, fitScore));
+    updated.overallRisk = riskLevel;
+    updated.overallAdmissionChance = [minChance, maxChance];
+
+    return updated;
+  });
+}
+
+/**
  * Normalizes metrics and applies user/parent weights to determine ranked fit scores.
  * All metrics mapped to 0-100 scale where higher is always better.
  */

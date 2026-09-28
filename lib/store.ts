@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { StudentProfile, Pathway, WhatIfScenarioPreset, DecisionWeights, PathwayNode } from "@/types";
 import { Currency } from "@/lib/utils";
 import initialPathways from "@/data/pathways.json";
-import { applyScenario } from "@/lib/engine";
+import { applyScenario, calculatePathwaysForProfile } from "@/lib/engine";
 
 export const DEFAULT_AARAV_PROFILE: StudentProfile = {
   name: "Aarav Kulkarni",
@@ -101,7 +101,7 @@ interface AppState {
 export const useAppStore = create<AppState>((set, get) => ({
   theme: "light",
   currency: "INR",
-  currentTab: "pathways",
+  currentTab: "profile",
   profile: DEFAULT_AARAV_PROFILE,
   pathways: initialPathways as Pathway[],
   selectedPathwayId: "pathway-mbbs-india",
@@ -129,9 +129,14 @@ export const useAppStore = create<AppState>((set, get) => ({
   setCurrentTab: (currentTab) => set({ currentTab }),
 
   updateProfile: (updatedFields) =>
-    set((state) => ({
-      profile: { ...state.profile, ...updatedFields },
-    })),
+    set((state) => {
+      const nextProfile = { ...state.profile, ...updatedFields };
+      const recalculated = calculatePathwaysForProfile(nextProfile, initialPathways as Pathway[]);
+      return {
+        profile: nextProfile,
+        pathways: recalculated,
+      };
+    }),
 
   resetToAaravDemo: () =>
     set({

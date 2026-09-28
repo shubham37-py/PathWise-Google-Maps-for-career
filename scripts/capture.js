@@ -18,67 +18,42 @@ async function main() {
 
   const page = await browser.newPage();
 
-  page.on("console", (msg) => {
-    console.log(`[BROWSER ${msg.type().toUpperCase()}]`, msg.text());
-  });
-
-  page.on("pageerror", (err) => {
-    console.error("[PAGE ERROR]", err.message);
-  });
-
-  console.log("Navigating to http://localhost:3000...");
-  await page.goto("http://localhost:3000", { waitUntil: "networkidle0", timeout: 30000 });
-
-  // 1. Desktop Light (1440x900)
+  // 1. Profile Builder Desktop Light (1440x900)
+  console.log("Capturing Profile Builder (Desktop Light)...");
   await page.setViewport({ width: 1440, height: 900 });
-  await new Promise((r) => setTimeout(r, 1500));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "pathway-1440-light.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "pathway-1440-light.png") });
-  console.log("Saved pathway-1440-light.png");
+  await page.goto("http://localhost:3000?tab=profile&theme=light", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-1440-light.png") });
 
-  // Click on a node or select MBBS pathway to open drawer
-  try {
-    const node = await page.$(".react-flow__node");
-    if (node) {
-      await node.click();
-      await new Promise((r) => setTimeout(r, 800));
-      await page.screenshot({ path: path.join(LOCAL_DIR, "pathway-1440-drawer.png") });
-      await page.screenshot({ path: path.join(ARTIFACT_DIR, "pathway-1440-drawer.png") });
-      console.log("Saved pathway-1440-drawer.png");
-    }
-  } catch (e) {
-    console.warn("Could not click node:", e.message);
-  }
+  // 2. Profile Builder Desktop Dark (1440x900)
+  console.log("Capturing Profile Builder (Desktop Dark)...");
+  await page.goto("http://localhost:3000?tab=profile&theme=dark", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-1440-dark.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-1440-dark.png") });
 
-  // 2. Desktop Dark (1440x900)
-  await page.goto("http://localhost:3000?theme=dark", { waitUntil: "networkidle0" });
+  // 3. Profile Builder Mobile Light (375x812)
+  console.log("Capturing Profile Builder (Mobile Light)...");
+  await page.setViewport({ width: 375, height: 812, isMobile: true, hasTouch: true });
+  await page.goto("http://localhost:3000?tab=profile&theme=light", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "profile-375-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "profile-375-light.png") });
+
+  // 4. Landing Page Desktop Light (1440x900)
+  console.log("Capturing Landing Page (Desktop Light)...");
   await page.setViewport({ width: 1440, height: 900 });
-  await new Promise((r) => setTimeout(r, 1500));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "pathway-1440-dark.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "pathway-1440-dark.png") });
-  console.log("Saved pathway-1440-dark.png");
-
-  // 3. Mobile Light (375x812)
-  await page.goto("http://localhost:3000?theme=light", { waitUntil: "networkidle0" });
-  await page.setViewport({ width: 375, height: 812, isMobile: true, hasTouch: true });
-  await new Promise((r) => setTimeout(r, 1500));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "pathway-375-light.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "pathway-375-light.png") });
-  console.log("Saved pathway-375-light.png");
-
-  // 4. Mobile Dark (375x812)
-  await page.goto("http://localhost:3000?theme=dark", { waitUntil: "networkidle0" });
-  await page.setViewport({ width: 375, height: 812, isMobile: true, hasTouch: true });
-  await new Promise((r) => setTimeout(r, 1500));
-  await page.screenshot({ path: path.join(LOCAL_DIR, "pathway-375-dark.png") });
-  await page.screenshot({ path: path.join(ARTIFACT_DIR, "pathway-375-dark.png") });
-  console.log("Saved pathway-375-dark.png");
+  await page.goto("http://localhost:3000?tab=landing&theme=light", { waitUntil: "networkidle0" });
+  await new Promise((r) => setTimeout(r, 1200));
+  await page.screenshot({ path: path.join(LOCAL_DIR, "landing-1440-light.png") });
+  await page.screenshot({ path: path.join(ARTIFACT_DIR, "landing-1440-light.png") });
 
   await browser.close();
-  console.log("All screenshots captured successfully.");
+  console.log("Profile & Landing screenshots captured successfully.");
 }
 
 main().catch((err) => {
-  console.error("Capture script error:", err);
+  console.error("Capture error:", err);
   process.exit(1);
 });

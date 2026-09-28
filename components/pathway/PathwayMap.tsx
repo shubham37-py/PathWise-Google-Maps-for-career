@@ -44,7 +44,7 @@ const PATHWAY_Y_COORDS: Record<string, number> = {
   "pathway-diploma-lateral": 940,
 };
 
-export const PathwayMap: React.FC = () => {
+export const PathwayMap: React.FC<{ compact?: boolean }> = ({ compact = false }) => {
   const {
     pathways,
     selectedPathwayId,
@@ -172,59 +172,61 @@ export const PathwayMap: React.FC = () => {
   }, [flowEdges, setEdges]);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-3.5rem)] relative bg-bg-app overflow-hidden">
-      {/* Top Pathway Bar */}
-      <div className="shrink-0 border-b border-border bg-surface-base px-4 py-3 z-20">
-        <div className="mx-auto max-w-content flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div>
-            <h1 className="font-serif text-20 text-ink-primary font-semibold">
-              Career Pathway Map
-            </h1>
-            <p className="text-12 text-ink-muted">
-              Select any pathway or milestone node to inspect true costs, risks, and assumptions.
-            </p>
-          </div>
+    <div className={`flex flex-col relative bg-bg-app overflow-hidden ${compact ? "h-full w-full" : "h-[calc(100vh-3.5rem)]"}`}>
+      {/* Top Pathway Bar (Hidden in compact preview) */}
+      {!compact && (
+        <div className="shrink-0 border-b border-border bg-surface-base px-4 py-3 z-20">
+          <div className="mx-auto max-w-content flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div>
+              <h1 className="font-serif text-20 text-ink-primary font-semibold">
+                Career Pathway Map
+              </h1>
+              <p className="text-12 text-ink-muted">
+                Select any pathway or milestone node to inspect true costs, risks, and assumptions.
+              </p>
+            </div>
 
-          {/* Pathway Selector Filter Chips */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
-            {pathways.map((p) => {
-              const isSelected = p.id === selectedPathwayId;
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => selectPathway(p.id)}
-                  className={`shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-pill text-12 font-medium transition-all ${
-                    isSelected
-                      ? "bg-accent text-accent-contrast shadow-sm"
-                      : "bg-surface-subtle text-ink-secondary hover:text-ink-primary border border-border"
-                  }`}
-                >
-                  <span>{p.title.split("(")[0]}</span>
-                  <span
-                    className={`px-1.5 py-0.2 rounded-pill text-[10px] tabular-nums font-semibold ${
+            {/* Pathway Selector Filter Chips */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
+              {pathways.map((p) => {
+                const isSelected = p.id === selectedPathwayId;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => selectPathway(p.id)}
+                    className={`shrink-0 flex items-center gap-2 px-3 py-1.5 rounded-pill text-12 font-medium transition-all ${
                       isSelected
-                        ? "bg-white/20 text-white"
-                        : "bg-surface-base text-ink-muted border border-border-subtle"
+                        ? "bg-accent text-accent-contrast shadow-sm"
+                        : "bg-surface-subtle text-ink-secondary hover:text-ink-primary border border-border"
                     }`}
                   >
-                    {p.fitScore}% Fit
-                  </span>
-                </button>
-              );
-            })}
+                    <span>{p.title.split("(")[0]}</span>
+                    <span
+                      className={`px-1.5 py-0.2 rounded-pill text-[10px] tabular-nums font-semibold ${
+                        isSelected
+                          ? "bg-white/20 text-white"
+                          : "bg-surface-base text-ink-muted border border-border-subtle"
+                      }`}
+                    >
+                      {p.fitScore}% Fit
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Milestone Column Headers Indicator */}
+          <div className="hidden lg:grid grid-cols-6 gap-4 mx-auto max-w-content mt-3 pt-2 border-t border-border-subtle text-[11px] font-medium uppercase tracking-wider text-ink-muted">
+            <div>1. Class 10 Baseline</div>
+            <div>2. Senior Stream</div>
+            <div>3. Entrance Exam</div>
+            <div>4. Degree & Institution</div>
+            <div>5. First Professional Role</div>
+            <div>6. 10-Yr Career Plateau</div>
           </div>
         </div>
-
-        {/* Milestone Column Headers Indicator */}
-        <div className="hidden lg:grid grid-cols-6 gap-4 mx-auto max-w-content mt-3 pt-2 border-t border-border-subtle text-[11px] font-medium uppercase tracking-wider text-ink-muted">
-          <div>1. Class 10 Baseline</div>
-          <div>2. Senior Stream</div>
-          <div>3. Entrance Exam</div>
-          <div>4. Degree & Institution</div>
-          <div>5. First Professional Role</div>
-          <div>6. 10-Yr Career Plateau</div>
-        </div>
-      </div>
+      )}
 
       {/* React Flow Graph Canvas */}
       <div className="flex-1 w-full h-full relative">
@@ -235,27 +237,31 @@ export const PathwayMap: React.FC = () => {
           onEdgesChange={onEdgesChange}
           nodeTypes={nodeTypes}
           fitView
-          fitViewOptions={{ padding: 0.15 }}
-          minZoom={0.2}
+          fitViewOptions={{ padding: compact ? 0.25 : 0.15 }}
+          minZoom={0.15}
           maxZoom={1.5}
           proOptions={{ hideAttribution: true }}
         >
           <Background color="var(--border-default)" gap={24} size={1} />
-          <Controls
-            className="!left-4 !bottom-4 !shadow-none !border !border-border !rounded-sm !bg-surface-base"
-            showInteractive={false}
-          />
-          <MiniMap
-            className="!hidden sm:!block !right-4 !bottom-4 !border !border-border !rounded-sm !bg-surface-base !shadow-none"
-            nodeColor={() => "var(--border-strong)"}
-            maskColor={theme === "dark" ? "rgba(14, 17, 22, 0.7)" : "rgba(244, 244, 241, 0.7)"}
-            zoomable
-            pannable
-          />
+          {!compact && (
+            <>
+              <Controls
+                className="!left-4 !bottom-4 !shadow-none !border !border-border !rounded-sm !bg-surface-base"
+                showInteractive={false}
+              />
+              <MiniMap
+                className="!hidden sm:!block !right-4 !bottom-4 !border !border-border !rounded-sm !bg-surface-base !shadow-none"
+                nodeColor={() => "var(--border-strong)"}
+                maskColor={theme === "dark" ? "rgba(14, 17, 22, 0.7)" : "rgba(244, 244, 241, 0.7)"}
+                zoomable
+                pannable
+              />
+            </>
+          )}
         </ReactFlow>
 
-        {/* Right Inspection Drawer */}
-        <PathwayDrawer />
+        {/* Right Inspection Drawer (Hidden in compact preview) */}
+        {!compact && <PathwayDrawer />}
       </div>
     </div>
   );
